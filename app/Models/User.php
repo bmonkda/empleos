@@ -74,4 +74,13 @@ class User extends Authenticatable
     {
         return 'profile/username';
     }
+
+
+    //Relaciones uno a muchos
+
+    public function empleos()
+    {
+        return $this->hasMany(Empleo::class);
+    }
+
 }
