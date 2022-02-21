@@ -28,4 +28,11 @@ class Empleo extends Model
         return $this->belongsToMany(Modo::class);
     }
 
+    // Relaciones uno a uno polimórfica
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug');
 
             $table->text('extracto');
-            $table->longText('description');
+            $table->longText('descripcion');
 
             $table->enum('status', [1, 2])->default(1);
 
