@@ -8,7 +8,7 @@
                         <div>
                             @foreach ($empleo->modos as $modo)
                                 
-                                <a href="{{-- {{ route('empleos.modo',$modo) }} --}}" class="inline-block px-3 h-6 bg-{{ $modo->color }}-600 text-white rounded-full">{{ $modo->name }}</a>                    
+                                <a href="{{ route('empleos.modo',$modo) }}" class="inline-block px-3 h-6 bg-{{ $modo->color }}-600 text-white rounded-full">{{ $modo->name }}</a>                    
 
                             @endforeach
                         </div>
