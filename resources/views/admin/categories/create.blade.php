@@ -3,25 +3,51 @@
 @section('title', 'Dasboard')
 
 @section('content_header')
-    <h1>Crear categoría</h1>
+    <h1>Crear nueva categoría</h1>
 @stop
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h1 class="card-title"> Hola mundo</h1>
-        </div>
-
         <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aspernatur eos expedita voluptate at soluta ipsam deserunt incidunt? Labore neque ipsa debitis optio illo corrupti unde cum nostrum minima aut.</p>
+            {!! Form::open(['route' => 'admin.categories.store']) !!}
+
+                <div class="form-group">
+                    {!! Form::label('name', 'Nombre') !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre de la categoría']) !!}
+                
+                    @error('name')
+                        <span class="text-danger">{{ $message }}</span>>
+                    @enderror
+                
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('slug', 'Slug') !!}
+                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el slug de la categoría', 'readonly']) !!}
+                
+                    @error('slug')
+                        <span class="text-danger">{{ $message }}</span>>
+                    @enderror
+
+                </div>
+
+                {!! Form::submit('Crear categoría', ['class' => 'btn btn-primary']) !!}
+
+            {!! Form::close() !!}
         </div>
     </div> 
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
 @section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+    <script src="{{ asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js') }}"></script>
+
+    <script>
+        $(document).ready( function() {
+            $("#name").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#slug',
+                space: '-'
+            });
+        });
+    </script>
+@endsection

@@ -9,6 +9,11 @@ class Empleo extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     // Relaciones uno a muchos inversa
     
     public function user()

@@ -9,6 +9,11 @@ class Modo extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     // Relaciones muchos a muchos empleo-modo
 
     public function empleos()

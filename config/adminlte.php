@@ -251,13 +251,6 @@ return [
             'route' => 'admin.home',
             'icon'  => 'fas fa-fw fa-tachometer-alt',
         ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
         ['header' => 'ADMINISTRADOR'],
         [
             'text' => 'Categorías',
