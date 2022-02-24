@@ -16,7 +16,7 @@ class EmpleoSeeder extends Seeder
      */
     public function run()
     {
-        $empleos = Empleo::factory(100)->create();
+        $empleos = Empleo::factory(300)->create();
 
         foreach ($empleos as $empleo) {
             Image::factory(1)->create([

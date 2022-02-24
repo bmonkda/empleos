@@ -14,6 +14,8 @@ class Modo extends Model
         return 'slug';
     }
 
+    protected $fillable = ['name', 'slug', 'color'];
+
     // Relaciones muchos a muchos empleo-modo
 
     public function empleos()

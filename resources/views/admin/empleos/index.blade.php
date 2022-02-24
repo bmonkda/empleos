@@ -1,0 +1,22 @@
+@extends('adminlte::page')
+
+@section('title', 'Dasboard')
+
+@section('content_header')
+
+    <a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.empleos.create') }}">Nuevo empleo</a>
+
+    <h1>Lista de empleos</h1>
+@stop
+
+@section('content')
+    @livewire('admin.empleos-index')
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
