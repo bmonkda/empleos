@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Empleo;
 use App\Models\Modo;
+use App\Http\Requests\StoreEmpleoRequest;
 
 class EmpleoController extends Controller
 {
@@ -36,12 +37,18 @@ class EmpleoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreEmpleoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmpleoRequest $request)
     {
-        //
+        $empleo = Empleo::create($request->all());
+        
+        if ($request->modos) {
+            $empleo->modos()->attach($request->modos);
+        }
+
+        return redirect()->route('admin.empleos.edit', $empleo);
     }
 
     /**

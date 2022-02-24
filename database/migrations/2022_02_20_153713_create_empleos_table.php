@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
 
-            $table->text('extracto');
-            $table->longText('descripcion');
+            $table->text('extracto')->nullable();
+            $table->longText('descripcion')->nullable();
 
             $table->enum('status', [1, 2])->default(1);
 

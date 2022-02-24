@@ -10,19 +10,34 @@
     <div class="card">
         <div class="card-body">
             {!! Form::open(['route' => 'admin.empleos.store', 'autocomplete' => 'off']) !!}
+
+                {!! Form::hidden('user_id', auth()->user()->id) !!}
+
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre:') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del empleo']) !!}
+
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', 'Slug:') !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el slug del empleo', 'readonly']) !!}
+                    {!! Form::text('slug', null, ['class' => 'form-control', 'readonly']) !!}
+
+                    @error('slug')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('category_id', 'Categoría:') !!}
                     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+
+                    @error('category_id')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -36,6 +51,12 @@
                         </label>
                         
                     @endforeach
+
+                    @error('modos')
+                        <br>
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+
                 </div>
 
                 <div class="form-group">
@@ -49,16 +70,29 @@
                         {!! Form::radio('status', 2) !!}
                         PUBLICADO
                     </label>
+
+                    @error('status')
+                        <br>
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('extracto', 'Extracto:') !!}
                     {!! Form::textarea('extracto', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el extracto del empleo']) !!}
+                   
+                    @error('extracto')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('descripcion', 'Descripción:') !!}
                     {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción del empleo']) !!}
+                    
+                    @error('descripcion')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 {!! Form::submit('Crear empleo', ['class' => 'btn btn-primary']) !!}
