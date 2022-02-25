@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEmpleoRequest extends FormRequest
+class EmpleoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,11 +13,14 @@ class StoreEmpleoRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->user_id == auth()->user()->id) {
+
+        return true;
+        
+        /* if ($this->user_id == auth()->user()->id) {
             return true;
         } else {
             return false;
-        }
+        } */
         
     }
 
@@ -28,12 +31,19 @@ class StoreEmpleoRequest extends FormRequest
      */
     public function rules()
     {
+
+        $empleo = $this->route()->parameter('empleo');
+
         $rules = [
             'name' => 'required',
-            'slug' => 'required|unique:empleos',
+            'slug' => 'required|unique:empleos,slug,',
             'status' => 'required|in:1,2',
             'file' => 'image',
         ];
+
+        if ($empleo) {
+            $rules['slug'] = 'required|unique:empleos,slug,' . $empleo->id;
+        }
 
         if ($this->status == 2) {
             $rules = array_merge($rules, [

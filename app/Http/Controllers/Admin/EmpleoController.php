@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Empleo;
 use App\Models\Modo;
-use App\Http\Requests\StoreEmpleoRequest;
+use App\Http\Requests\EmpleoRequest;
 use Illuminate\Support\Facades\Storage;
 
 class EmpleoController extends Controller
@@ -32,16 +32,17 @@ class EmpleoController extends Controller
 
         $categories = Category::pluck('name', 'id');
         $modos = Modo::all();
+
         return view('admin.empleos.create', compact('categories', 'modos'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEmpleoRequest  $request
+     * @param  \App\Http\Requests\EmpleoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEmpleoRequest $request)
+    public function store(EmpleoRequest $request)
     {
 
        /*  return Storage::put('empleos', $request->file('file')); */
@@ -82,19 +83,44 @@ class EmpleoController extends Controller
      */
     public function edit(Empleo $empleo)
     {
-        return view('admin.empleos.edit', compact('empleo'));
+        $categories = Category::pluck('name', 'id');
+        $modos = Modo::all();
+
+        return view('admin.empleos.edit', compact('empleo', 'categories', 'modos'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\EmpleoRequest  $request
      * @param  \App\Models\Empleo  $empleo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleo $empleo)
+    public function update(EmpleoRequest $request, Empleo $empleo)
     {
-        //
+        $empleo->update($request->all());
+
+        if ($request->file('file')) {
+            $url = Storage::put('empleos', $request->file('file'));
+        
+            if ($empleo->image) {
+                Storage::delete($empleo->image->url);
+
+                $empleo->image()->update([
+                    'url' => $url
+                ]);
+            } else {
+                $empleo->image()->create([
+                    'url' => $url
+                ]);
+            }
+        }
+
+        if ($request->modos) {
+            $empleo->modos()->sync($request->modos);
+        }
+
+        return redirect()->route('admin.empleos.edit', $empleo)->with('info', 'Empleo actualizado con éxito');
     }
 
     /**
@@ -105,6 +131,8 @@ class EmpleoController extends Controller
      */
     public function destroy(Empleo $empleo)
     {
-        //
+        $empleo->delete();
+
+        return redirect()->route('admin.empleos.index')->with('info', 'Empleo se eliminó con éxito');
     }
 }
