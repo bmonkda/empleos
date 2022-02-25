@@ -32,6 +32,7 @@ class StoreEmpleoRequest extends FormRequest
             'name' => 'required',
             'slug' => 'required|unique:empleos',
             'status' => 'required|in:1,2',
+            'file' => 'image',
         ];
 
         if ($this->status == 2) {

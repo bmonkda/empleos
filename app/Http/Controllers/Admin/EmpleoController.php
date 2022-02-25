@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Empleo;
 use App\Models\Modo;
 use App\Http\Requests\StoreEmpleoRequest;
+use Illuminate\Support\Facades\Storage;
 
 class EmpleoController extends Controller
 {
@@ -42,7 +43,18 @@ class EmpleoController extends Controller
      */
     public function store(StoreEmpleoRequest $request)
     {
+
+       /*  return Storage::put('empleos', $request->file('file')); */
+
         $empleo = Empleo::create($request->all());
+
+        if ($request->file('file')) {
+            $url = Storage::put('empleos', $request->file('file'));
+
+            $empleo->image()->create([
+                'url' => $url
+            ]);
+        }
         
         if ($request->modos) {
             $empleo->modos()->attach($request->modos);

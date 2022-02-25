@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'admin.empleos.store', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => 'admin.empleos.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 
@@ -77,6 +77,27 @@
                     @enderror
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="image-wrapper">
+                            <img id="picture" src="https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_960_720.jpg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('file', 'Imagen que se mostrará') !!}
+                            {!! Form::file('file', ['class' => 'form-control-file', 'accept' => 'image/*']) !!}
+
+                            @error('file')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <p>Puede seleccionar una imagen alusiva a la oferta de empleo o dejar la imagen predeterminada</p>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('extracto', 'Extracto:') !!}
                     {!! Form::textarea('extracto', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el extracto del empleo']) !!}
@@ -103,7 +124,18 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -130,6 +162,18 @@
         .catch( error => {
             console.error( error );
         } );
+
+        // Cambiar imagen
+        document.getElementById("file").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(e) {
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById("picture").setAttribute('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
         
     </script>
 @endsection
