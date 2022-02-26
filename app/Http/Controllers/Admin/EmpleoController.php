@@ -83,6 +83,8 @@ class EmpleoController extends Controller
      */
     public function edit(Empleo $empleo)
     {
+        $this->authorize('author', $empleo);
+
         $categories = Category::pluck('name', 'id');
         $modos = Modo::all();
 
@@ -98,6 +100,8 @@ class EmpleoController extends Controller
      */
     public function update(EmpleoRequest $request, Empleo $empleo)
     {
+        $this->authorize('author', $empleo);
+
         $empleo->update($request->all());
 
         if ($request->file('file')) {
@@ -131,6 +135,8 @@ class EmpleoController extends Controller
      */
     public function destroy(Empleo $empleo)
     {
+        $this->authorize('author', $empleo);
+        
         $empleo->delete();
 
         return redirect()->route('admin.empleos.index')->with('info', 'Empleo se eliminó con éxito');

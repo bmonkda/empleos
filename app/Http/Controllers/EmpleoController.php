@@ -18,6 +18,9 @@ class EmpleoController extends Controller
     }
 
     public function show(Empleo $empleo){
+
+        $this->authorize('published', $empleo);
+
         $similares = Empleo::where('category_id', $empleo->category_id)
                             ->where('status', 2)
                             ->where('id', '!=', $empleo->id)

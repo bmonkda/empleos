@@ -11,8 +11,6 @@
         <div class="card-body">
             {!! Form::open(['route' => 'admin.empleos.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
-                {!! Form::hidden('user_id', auth()->user()->id) !!}
-
                 @include('admin.empleos.partials.form')
 
                 {!! Form::submit('Crear empleo', ['class' => 'btn btn-primary']) !!}
