@@ -13,9 +13,9 @@ class EmpleosIndex extends Component
 
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
-
     public $search;
+    
+    protected $paginationTheme = 'bootstrap';
 
     public function updatingSearch()
     {
