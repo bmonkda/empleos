@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class EmpleoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.empleos.index')->only('index');
+        $this->middleware('can:admin.empleos.create')->only('create', 'store');
+        $this->middleware('can:admin.empleos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.empleos.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,17 +71,6 @@ class EmpleoController extends Controller
         }
 
         return redirect()->route('admin.empleos.edit', $empleo);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Empleo  $empleo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Empleo $empleo)
-    {
-        return view('admin.empleos.show', compact('empleo'));
     }
 
     /**

@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class ModoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.modos.index')->only('index');
+        $this->middleware('can:admin.modos.create')->only('create', 'store');
+        $this->middleware('can:admin.modos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.modos.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -51,17 +60,6 @@ class ModoController extends Controller
         $modo = Modo::create($request->all());
 
         return redirect()->route('admin.modos.edit', $modo)->with('info', 'La modalidad se creó con éxito');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  App\Models\Modo  $modo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Modo $modo)
-    {
-        return view('admin.modos.show', compact('modo'));
     }
 
     /**
