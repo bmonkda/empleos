@@ -26,12 +26,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.users.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.update'])->syncRoles([$role1]);
 
-        Permission::create(['name' => 'admin.categories.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.categories.index'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'admin.categories.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.categories.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.categories.destroy'])->syncRoles([$role1]);
         
-        Permission::create(['name' => 'admin.modos.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.modos.index'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'admin.modos.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.modos.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.modos.destroy'])->syncRoles([$role1]);

@@ -3,7 +3,9 @@
 @section('title', 'Dasboard')
 
 @section('content_header')
-    <a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.modos.create') }}"> Agregar modalidad</a>
+    @can('admin.modos.create')
+        <a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.modos.create') }}"> Agregar modalidad</a>
+    @endcan
     <h1>Listado modalidad</h1>
 @stop
 
@@ -38,15 +40,19 @@
                             <td>{{$modo->id}}</td>
                             <td>{{$modo->name}}</td>
                             <td width="10px">
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.modos.edit', $modo) }}">Editar</a>
+                                @can('admin.modos.edit')
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.modos.edit', $modo) }}">Editar</a>
+                                @endcan
                             </td>
                             <td width="10px">
-                                <form action="{{ route('admin.modos.destroy', $modo) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
+                                @can('update')
+                                    <form action="{{ route('admin.modos.destroy', $modo) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
