@@ -12,7 +12,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Email</th>
-                            <th></th>
+                            <th colspan="2"></th>
                         </tr>
                     </thead>
 

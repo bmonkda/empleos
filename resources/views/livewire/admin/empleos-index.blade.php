@@ -19,16 +19,16 @@
                 <tbody>
                     @foreach ($empleos as $empleo)
                         <tr>
-                            <td> {{ $empleo->id }}</td>
-                            <td> {{ $empleo->name }}</td>
-                            <td with='10px'>
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.empleos.edit', $empleo) }}" class="btn btn-primary">Editar</a>
+                            <td>{{ $empleo->id }}</td>
+                            <td>{{ $empleo->name }}</td>
+                            <td width="10px">
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.empleos.edit', $empleo) }}">Editar</a>
                             </td>
-                            <td with='10px'>
+                            <td width="10px">
                                 <form action="{{ route('admin.empleos.destroy', $empleo) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
                             </td>
                         </tr>

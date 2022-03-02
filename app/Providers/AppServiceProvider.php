@@ -4,6 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+// estoy agragando esto por si acaso
+//////////////////////////////////////
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
+//////////////////////////////////////
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //agregando esta línea por si acaso
+        Schema::defaultStringLength(191);
+
     }
 }
