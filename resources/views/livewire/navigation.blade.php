@@ -50,13 +50,67 @@
 
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     {{-- Boton notificación --}}
-                    <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+
+                    {{-- <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span class="sr-only"></span>
                         <!-- Heroicon name: outline/bell -->
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                    </button>
+                    </button> --}}
+
+                    
+
+                    <div class="ml-3 relative" x-data="{ open:false }">
+                            
+                        <div>
+                            <button x-on:click="open = true" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"  role="menu" aria-orientation="vertical" aria-labelledby="user-menu" >
+                                <span class="not-sr-only">
+                                    @if (auth()->user()->unreadNotifications->count() )
+                                        {{ auth()->user()->unreadNotifications->count() }} 
+                                    @endif
+                                </span>
+                                <!-- Heroicon name: outline/bell -->
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+
+                            </button>
+                        </div>
+                    
+
+                        <div x-show="open" x-on:click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                            
+                            <span class="dropdown-item dropdown-header">Notificaciones sin leer</span>
+                            @forelse (auth()->user()->unreadNotifications as $notification)
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
+                                {{-- <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span> --}}
+
+                                @empty
+                                    <span class="float-right text-muted text-sm">No hay notificaciones por leer</span>
+                            @endforelse
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <span class="dropdown-item dropdown-header">Notificaciones leidas</span>
+
+                            @forelse (auth()->user()->readNotifications as $notification)
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
+
+                                @empty
+                                    <span class="float-right text-muted text-sm">Sin notificaciones leidas</span>
+                            @endforelse
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="{{ route('markAsRead') }}" class="dropdown-item dropdown-footer">Marcar todo como leido</a>
+
+                        </div>
+                    </div>
+
+
+
+
 
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative" x-data="{ open:false }">

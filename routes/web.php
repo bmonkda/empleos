@@ -13,6 +13,11 @@ Route::get('category/{category}', [EmpleoController::class, 'category'])->name('
 
 Route::get('modo/{modo}', [EmpleoController::class, 'modo'])->name('empleos.modo');
 
+Route::get('markAsRead', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markAsRead');
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
