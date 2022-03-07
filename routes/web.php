@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmpleoController;
+use App\Http\Controllers\SuscripcionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,6 +13,8 @@ Route::get('empleos/{empleo}',[EmpleoController::class, 'show'])->name('empleos.
 Route::get('category/{category}', [EmpleoController::class, 'category'])->name('empleos.category');
 
 Route::get('modo/{modo}', [EmpleoController::class, 'modo'])->name('empleos.modo');
+
+Route::resource('suscripciones', SuscripcionController::class)->names('suscripciones');
 
 Route::get('markAsRead', function () {
     auth()->user()->unreadNotifications->markAsRead();

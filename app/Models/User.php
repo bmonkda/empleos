@@ -70,7 +70,16 @@ class User extends Authenticatable
     {
         // modificar código cuando se haga tabla de roles
         // return rol del usuario;
-        return 'Administrador';
+        // return 'Administrador';
+        if ($this->hasRole('Admin')) {
+            return 'Administrador';
+        }
+        elseif ($this->hasRole('Gestor')) {
+            return 'Gestor';
+        }
+        else{
+            return 'Usuario';
+        }
     }
 
     public function adminlte_profile_url()

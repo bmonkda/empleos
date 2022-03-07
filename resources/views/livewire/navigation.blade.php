@@ -83,7 +83,7 @@
                             
                             <span class="dropdown-item dropdown-header">Notificaciones sin leer</span>
                             @forelse (auth()->user()->unreadNotifications as $notification)
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
+                                <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
                                 {{-- <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span> --}}
 
                                 @empty
@@ -95,7 +95,7 @@
                             <span class="dropdown-item dropdown-header">Notificaciones leidas</span>
 
                             @forelse (auth()->user()->readNotifications as $notification)
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
+                                <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ $notification->data['name'] }}</a>
 
                                 @empty
                                     <span class="float-right text-muted text-sm">Sin notificaciones leidas</span>
@@ -104,6 +104,11 @@
                             <div class="dropdown-divider"></div>
 
                             <a href="{{ route('markAsRead') }}" class="dropdown-item dropdown-footer">Marcar todo como leido</a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="{{ route('suscripciones.index') }}" class="dropdown-item dropdown-footer">Suscribir</a>
+
 
                         </div>
                     </div>
