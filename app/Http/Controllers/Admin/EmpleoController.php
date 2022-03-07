@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\EmpleoEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -70,7 +71,9 @@ class EmpleoController extends Controller
             $empleo->modos()->attach($request->modos);
         }
 
-        return redirect()->route('admin.empleos.edit', $empleo);
+        event(new EmpleoEvent($empleo));
+
+        return redirect()->route('admin.empleos.edit', $empleo)->with('info', 'Empleo creado con éxito');
     }
 
     /**
