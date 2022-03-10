@@ -42,47 +42,7 @@ class SuscripcionController extends Controller
     {
         // $suscripcion = Suscripcion::create($request->all());
 
-        // return $suscripcion->all();
-        
-        return redirect()->route('suscripciones.store')->with('info', 'La suscripción se realizó con éxito');
-
-/////////////////////////////////////////////////////////////
-
-        // $request->validate([
-        //     'name' => 'required',
-        //     'slug' => 'required|unique:modos',
-        //     'color' => 'required',
-        // ]);
-
-        
-        $modo = Modo::create($request->all());
-        
-        
-        
-        return redirect()->route('admin.modos.edit', $modo)->with('info', 'La modalidad se creó con éxito');
-
-
-
-
-
-/////////////////////////////////////////////////////////////
-    // $empleo = Empleo::create($request->all());
-    
-        // if ($request->file('file')) {
-        //     $url = Storage::put('empleos', $request->file('file'));
-
-        //     $empleo->image()->create([
-        //         'url' => $url
-        //     ]);
-        // }
-        
-        // if ($request->modos) {
-        //     $empleo->modos()->attach($request->modos);
-        // }
-
-        // event(new EmpleoEvent($empleo));
-
-        // return redirect()->route('admin.empleos.edit', $empleo)->with('info', 'Empleo creado con éxito');
+        return view('suscripciones.store');
     }
 
     /**

@@ -106,7 +106,7 @@
     </div>
     
 
-    {!! Form::open(['route' => 'suscripciones.index', 'autocomplete' => 'off']) !!}
+    {!! Form::open(['route' => 'suscripciones.store', 'autocomplete' => 'off']) !!}
 
         {!! Form::submit('Suscribir', ['class' => 'btn btn-primary']) !!}
 
