@@ -14,7 +14,7 @@
 
         <div class="card-body">
             <h3>{{ Auth::user()->name }}</h3>
-            <h5>Bienvenido</h5>
+            <h5>Bienvenido al sistema</h5>
         </div>
     </div>   
 @stop
